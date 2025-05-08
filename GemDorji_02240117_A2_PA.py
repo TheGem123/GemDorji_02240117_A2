@@ -43,33 +43,36 @@ class GameCollection:
                 print("Please enter a valid number!")
 
     def rock_paper_scissors_game(self):
-        choices = ["rock", "paper", "scissors"]
+        options = ["rock", "paper", "scissors"]
+        beats = {
+            "rock": "scissors",    # Rock beats scissors
+            "paper": "rock",       # Paper beats rock
+            "scissors": "paper"    # Scissors beat paper
+        }
 
         while True:
-            # Get player's choice
-            player_choice = input("Choose rock, paper, or scissors: ").lower()
-            while player_choice not in choices:
-                print("Oops! Please choose rock, paper, or scissors.")
-                player_choice = input(
-                    "Choose rock, paper, or scissors: ").lower()
+            # Get player's move
+            player_move = input("choose rock, paper, or scissors: ").lower()
+            while player_move not in options:
+                print("error! kindly pick rock, paper, or scissors.")
+                player_move = input(
+                    "choose rock, paper, or scissors: ").lower()
 
-            # Computer picks randomly
-            computer_choice = random.choice(choices)
-            print(f"\nYou chose: {player_choice}")
-            print(f"Computer chose: {computer_choice}")
+            # Computer selects random choice
+            computer_move = random.choice(options)
+            print(f"\nYou played: {player_move}")
+            print(f"Computer played: {computer_move}")
 
-            # Check who wins
-            if player_choice == computer_choice:
-                print("It's a tie!")
-            elif (player_choice == "rock" and computer_choice == "scissors") or \
-                (player_choice == "paper" and computer_choice == "rock") or \
-                    (player_choice == "scissors" and computer_choice == "paper"):
-                print("You win! 🎉")
+            # Display the result
+            if player_move == computer_move:
+                print("It's a draw!")
+            elif beats[player_move] == computer_move:
+                print("Congrats you beat the computer! 🎉")
                 break
             else:
-                print("Computer wins!")
+                print("Oops! Computer wins!")
 
-            print()  # Add empty line between rounds
+            print()  # Empty line for spacing
 
     def trivia_Pursuit_game(self):
         """Simple trivia game with 3 questions"""
