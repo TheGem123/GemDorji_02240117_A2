@@ -64,15 +64,20 @@ class PokemonBinder:
             os.remove(self.save_file)
 
     def save_progress(self):
-        """Save collection to file"""
+        """collections saved to file"""
         with open(self.save_file, 'w') as f:
             json.dump(self.cards, f)
 
     def load_progress(self):
-        """Load previous collection from file"""
+        # Loads previous collection from the file
+        ''' if os.path.exists(self.save_file):
+             with open(self.save_file, 'r') as f:
+                 self.cards = {int(k): v for k, v in json.load(f).items()}'''
         if os.path.exists(self.save_file):
-            with open(self.save_file, 'r') as f:
-                self.cards = {int(k): v for k, v in json.load(f).items()}
+            with open(self.save_file) as f:
+                saved_data = json.load(f)
+                self.cards = {int(id): details for id,
+                              details in saved_data.items()}
 
 
 def main():
@@ -85,20 +90,20 @@ def main():
         print("2. View your collection")
         print("3. Find a Pokemon current location")
         print("4. Start over")
-        print("5. Exit")
+        print("5. Exit the program")
 
         choice = input("Enter your choice (1-5): ")
 
         if choice == '1':
             try:
-                num = int(input("Enter Pokemon number (1-151): "))
+                num = int(input("kindly enter Pokemon number (1-151): "))
                 result = binder.add_card(num)
                 if result:
                     print(result)
                 else:
                     print(f"Added Pokemon #{num} to your binder!")
             except ValueError:
-                print("Please enter a number between 1-151")
+                print("Kindly enter a number between 1-151")
 
         elif choice == '2':
             print("\n" + binder.show_collection())
@@ -108,15 +113,15 @@ def main():
                 num = int(input("Which Pokemon are you looking for? (1-151): "))
                 print("\n" + binder.find_card(num))
             except ValueError:
-                print("Please enter a valid number")
+                print("Kindly enter a valid number")
 
         elif choice == '4':
-            if input("Are you sure you want to clear your collection? (y/n): ").lower() == 'y':
+            if input("would you like to reset the program? (y/n): ").lower() == 'y':
                 binder.reset()
                 print("Your binder has been cleared.")
 
         elif choice == '5':
-            print("Thanks for using the Pokemon Card Binder!")
+            print("Thank you for spending time Pokemon Card Binder!")
             break
 
         else:
