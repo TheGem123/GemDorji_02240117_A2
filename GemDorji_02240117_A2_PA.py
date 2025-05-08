@@ -1,5 +1,6 @@
 import random
 
+
 class GameCollection:
     def __init__(self):
         self.scores = {
@@ -16,7 +17,7 @@ class GameCollection:
         print("3. Trivia Pursuit Game")
         print("4.pokemon_card_binder_manager")
         print("5. View Overall Scores")
-        print("6. Exit")
+        print("6. Exit the program")
         return input("Choose a game (1-5): ")
 
     def guess_the_number(self):
@@ -42,34 +43,33 @@ class GameCollection:
                 print("Please enter a valid number!")
 
     def rock_paper_scissors_game(self):
-        """A rock-paper-scissors game that ends when the player wins."""
-        options = ("rock", "paper", "scissors")
+        choices = ["rock", "paper", "scissors"]
 
         while True:
-            player = None
-            computer = random.choice(options)
+            # Get player's choice
+            player_choice = input("Choose rock, paper, or scissors: ").lower()
+            while player_choice not in choices:
+                print("Oops! Please choose rock, paper, or scissors.")
+                player_choice = input(
+                    "Choose rock, paper, or scissors: ").lower()
 
-            while player not in options:
-                player = input(
-                    "Enter a choice (rock, paper, scissors): ").lower()
-                if player in options:
-                    break
-                print("Invalid choice. Please try again.")
+            # Computer picks randomly
+            computer_choice = random.choice(choices)
+            print(f"\nYou chose: {player_choice}")
+            print(f"Computer chose: {computer_choice}")
 
-            print(f"\nPlayer: {player}")
-            print(f"Computer: {computer}")
-
-            if player == computer:
+            # Check who wins
+            if player_choice == computer_choice:
                 print("It's a tie!")
-            elif (player == "rock" and computer == "scissors") or \
-                 (player == "paper" and computer == "rock") or \
-                 (player == "scissors" and computer == "paper"):
-                print("You win!")
-                break  # Exit the game when player wins
+            elif (player_choice == "rock" and computer_choice == "scissors") or \
+                (player_choice == "paper" and computer_choice == "rock") or \
+                    (player_choice == "scissors" and computer_choice == "paper"):
+                print("You win! 🎉")
+                break
             else:
-                print("You lose!")
+                print("Computer wins!")
 
-            print()
+            print()  # Add empty line between rounds
 
     def trivia_Pursuit_game(self):
         """Simple trivia game with 3 questions"""
